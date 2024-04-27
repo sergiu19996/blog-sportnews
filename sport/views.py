@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Event, Comment
-from .forms import CommentForm
 from .models import Player, Team, News
 
 def player_list(request):
