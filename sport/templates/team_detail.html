@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Team Details{% endblock %}
+
+{% block content %}
+<section>
+    <h1>{{ team.name }}</h1>
+    <p>Coach: {{ team.coach }}</p>
+    <p>Team Creation Date: {{ team.team_created }}</p>
+</section>
+
+<section>
+    <h2>News about {{ team.name }}</h2>
+    {% for news_item in team.news_set.all %}
+        <article>
+            <h3>{{ news_item.title }}</h3>
+            <p>{{ news_item.content }}</p>
+            <p>Author: {{ news_item.author.username }}</p>
+            <p>Published Date: {{ news_item.created_at }}</p>
+        </article>
+    {% empty %}
+        <p>No news available for this team.</p>
+    {% endfor %}
+</section>
+
+<section>
+    <h2>Events organized by {{ team.name }}</h2>
+    {% for event in team.event_set.all %}
+        <article>
+            <h3>{{ event.name }}</h3>
+            <p>Location: {{ event.location }}</p>
+            <p>Event Date: {{ event.date }}</p>
+        </article>
+    {% empty %}
+        <p>No events associated with this team.</p>
+    {% endfor %}
+</section>
+{% endblock %}

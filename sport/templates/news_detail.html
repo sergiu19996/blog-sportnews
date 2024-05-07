@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}News Details{% endblock %}
+
+{% block content %}
+<section>
+    <h1>{{ news.title }}</h1>
+    <p>{{ news.content }}</p>
+    <p>Author: {{ news.author.username }}</p>
+    <p>Published Date: {{ news.created_at }}</p>
+</section>
+{% endblock %}
