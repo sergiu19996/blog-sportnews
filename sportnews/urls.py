@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from sport import views
 from django.urls import include
+# import redirect view
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +32,5 @@ urlpatterns = [
     path('edit_comment/<int:comment_id>/', views.edit_comment, name='edit_comment'),
     path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
     path('accounts/', include('allauth.urls')),
+    path('', RedirectView.as_view(pattern_name='account_login', permanent=False)),  #Redirect to allauth login page on empty path
 ]
