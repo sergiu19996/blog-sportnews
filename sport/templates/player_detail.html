@@ -1,40 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}Detalii Jucător{% endblock %}
+{% block title %}Player Details{% endblock %}
 
 {% block content %}
 <section>
     <h1>{{ player.name }}</h1>
-    <p>Data nașterii: {{ player.birth_date }}</p>
-    <p>Echipa: {{ player.team.name }}</p>
-    <p>Istoric:</p>
+    <p>Date of Birth: {{ player.birth_date }}</p>
+    <p>Team: {{ player.team.name }}</p>
+    <p>History:</p>
     <p>{{ player.history }}</p>
 </section>
 
 <section>
-    <h2>Știri despre {{ player.name }}</h2>
+    <h2>News about {{ player.name }}</h2>
     {% for news_item in player.team.news_set.all %}
         <article>
             <h3>{{ news_item.title }}</h3>
             <p>{{ news_item.content }}</p>
-            <p>Autor: {{ news_item.author.username }}</p>
-            <p>Data publicării: {{ news_item.created_at }}</p>
+            <p>Author: {{ news_item.author.username }}</p>
+            <p>Published Date: {{ news_item.created_at }}</p>
         </article>
     {% empty %}
-        <p>Nu există știri despre acest jucător.</p>
+        <p>No news about this player.</p>
     {% endfor %}
 </section>
 
 <section>
-    <h2>Comentarii la evenimente asociate</h2>
+    <h2>Comments on associated events</h2>
     {% for comment in player.team.event_set.all.comments.all %}
         <article>
             <p>{{ comment.content }}</p>
-            <p>Autor: {{ comment.user.username }}</p>
-            <p>Data comentariului: {{ comment.created_at }}</p>
+            <p>Author: {{ comment.user.username }}</p>
+            <p>Comment Date: {{ comment.created_at }}</p>
         </article>
     {% empty %}
-        <p>Nu există comentarii asociate acestui jucător.</p>
+        <p>No comments associated with this player.</p>
     {% endfor %}
 </section>
 {% endblock %}
