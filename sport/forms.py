@@ -6,7 +6,7 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ['content', 'author'] 
+        fields = ['content', 'user'] 
 
     def clean_content(self):
         content = self.cleaned_data['content']

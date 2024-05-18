@@ -97,7 +97,7 @@ class Comment(models.Model):
     Attributes:
         event (ForeignKey): Foreign key to the Event model (event associated with the comment).
         content (TextField): The comment content.
-        author (str): The author's name of the comment.
+        user (str): The author's name of the comment.
         created_at (DateTimeField): The date and time the comment was created.
     """
 

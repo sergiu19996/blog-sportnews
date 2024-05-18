@@ -1,6 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Event, Comment, Player, Team, News
-from .forms import CommentForm 
+from .models import Player, Team, News, Event, Comment
+from .forms import CommentForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
+
+
+def index(request):
+    news = News.objects.all()
+    events = Event.objects.all()
+    comments = Comment.objects.all()
+    return render(request, 'index.html', {'news': news, 'events': events, 'comments': comments})
 
 def player_list(request):
     players = Player.objects.all()
@@ -13,6 +27,10 @@ def team_list(request):
 def news_list(request):
     news = News.objects.all()
     return render(request, 'news_list.html', {'news': news})
+
+def news_detail(request, news_id):
+    news_item = get_object_or_404(News, pk=news_id)
+    return render(request, 'news_detail.html', {'news': news_item})
 
 def event_list(request):
     events = Event.objects.all()
