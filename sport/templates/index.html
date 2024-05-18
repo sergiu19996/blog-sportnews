@@ -1,47 +1,62 @@
-{% extends 'base.html' %}
-
-{% block title %}Home{% endblock %}
-
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
-<section>
-    <h2>News</h2>
-    {% for news_item in news %}
-        <article>
-            <h3>{{ news_item.title }}</h3>
-            <p>{{ news_item.content|truncatewords:30 }}</p>
-            <p>Author: {{ news_item.author.username }}</p>
-            <p>Published Date: {{ news_item.created_at }}</p>
-            <a href="{% url 'news_detail' news_item.id %}">Read more</a>
-        </article>
-    {% empty %}
-        <p>No news available.</p>
-    {% endfor %}
-</section>
 
-<section>
-    <h2>Events</h2>
-    {% for event in events %}
-        <article>
-            <h3>{{ event.name }}</h3>
-            <p>Location: {{ event.location }}</p>
-            <p>Event Date: {{ event.date }}</p>
-            <a href="{% url 'event_detail' event.id %}">Read more</a>
-        </article>
-    {% empty %}
-        <p>No events available.</p>
-    {% endfor %}
-</section>
+<!-- index.html content starts here -->
+<div class="container-fluid">
+    <div class="row">
 
-<section>
-    <h2>Comments</h2>
-    {% for comment in comments %}
-        <article>
-            <p>{{ comment.content|truncatewords:30 }}</p>
-            <p>Author: {{ comment.author.username }}</p>
-            <p>Comment Date: {{ comment.created_at }}</p>
-        </article>
-    {% empty %}
-        <p>No comments available.</p>
-    {% endfor %}
-</section>
+        <!-- Blog Entries Column -->
+        <div class="col-12 mt-3 left">
+            <div class="row">
+                {% for news in news_list %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="image-container">
+                                {% if "placeholder" in news.featured_image.url %}
+                                <img class="card-img-top" src="{% static 'images/default.jpg' %}" alt="placeholder image">
+                                {% else %}
+                                <img class="card-img-top" src="{{ news.featured_image.url }}" alt="{{ news.title }}">
+                                {% endif %}
+                                <div class="image-flash">
+                                    <p class="author">Author: {{ news.author }}</p>
+                                </div>
+                            </div>
+                            <a href="{% url 'news_detail' news.id %}" class="post-link">
+                                <h2 class="card-title">{{ news.title }}</h2>
+                                <p class="card-text">{{ news.excerpt }}</p>
+                            </a>
+
+                            <hr />
+                            <p class="card-text text-muted h6">{{ news.created_on }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:3 %}
+            </div>
+            <div class="row">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+<!-- index.html content ends here -->
 {% endblock %}
+{% block copyright %}Copyright 2024 Sport News{% endblock %}

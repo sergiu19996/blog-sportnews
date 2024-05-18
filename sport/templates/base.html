@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>{% block title %}My Sports Blog{% endblock %}</title>
     <link rel="stylesheet" href="/sport/templates/styles.css">
 </head>
+
 <body>
     <header>
         <nav>
             <ul>
                 <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'event_list' %}">Events</a></li>
+                <li><a href="{% url 'event_' %}">Events</a></li>
                 <li><a href="{% url 'news_list' %}">Posts</a></li>
                 <li><a href="{% url 'comment_list' %}">Comments</a></li>
                 <li><a href="{% url 'account_login' %}">Login</a></li>
@@ -21,4 +23,5 @@
         {% block content %}{% endblock %}
     </main>
 </body>
+
 </html>
