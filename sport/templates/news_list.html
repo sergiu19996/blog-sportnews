@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}All news{% endblock %}
+
+{% block content %}
+<section>
+    <h1> all news </h1>
+
+</section>
+
+<section>
+    <h2>News </h2>
+    {% for piece_news in news %}
+    <h3>{{ piece_news.title }}</h3>
+    <a href="{% url 'news_detail' news_id=piece_news.pk %}">go to details</a>
+    <article>
+        <p>{{ piece_news.content }}</p>
+        <p>Author: {{ piece_news.user.username }}</p>
+        <p>News Date: {{ piece_news.created_at }}</p>
+    </article>
+    {% empty %}
+    <p>No news for this event.</p>
+    {% endfor %}
+</section>
+{% endblock %}
